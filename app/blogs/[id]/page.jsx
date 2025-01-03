@@ -6,12 +6,14 @@ import { FaInstagram } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
 import { SlSocialYoutube } from "react-icons/sl";
 import Footer from "@/components/Footer";
+import LoginPopUp from "@/components/LoginPopUp"; 
 import Link from "next/link";
 import axios from "axios";
 
-const page = ({ params }) => {
+const Page = ({ params }) => {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
+  const [showLogin, setShowLogin] = useState(false); 
 
   const fetchData = async () => {
     const resolvedParams = await params;
@@ -21,7 +23,7 @@ const page = ({ params }) => {
       },
     });
     setData(response.data);
-    setLoading(false); 
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -30,6 +32,7 @@ const page = ({ params }) => {
 
   return (
     <>
+      {showLogin && <LoginPopUp setShowLogin={setShowLogin} />}
       {loading ? (
         <div className="text-center mt-8">
           <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-yellow-500 mx-auto"></div>
@@ -45,10 +48,10 @@ const page = ({ params }) => {
               <TfiThought className="text-4xl" />
             </Link>
             <div className="flex gap-4">
-              <button className="font-medium py-1 px-3 sm:py-2 sm:px-4 border border-solid border-black shadow-[-5px_5px_0px_#000000] transition-all hover:shadow-none rounded-[40px]">
-                Sign Up
-              </button>
-              <button className="font-medium py-1 px-3 sm:py-2 sm:px-4 border border-solid border-black shadow-[-5px_5px_0px_#000000] transition-all hover:shadow-none rounded-[40px]">
+              <button
+                onClick={() => setShowLogin(true)}
+                className="font-medium py-1 px-3 sm:py-2 sm:px-4 border border-solid border-black shadow-[-5px_5px_0px_#000000] transition-all hover:shadow-none rounded-[40px]"
+              >
                 Log In
               </button>
             </div>
@@ -100,4 +103,4 @@ const page = ({ params }) => {
   );
 };
 
-export default page;
+export default Page;
