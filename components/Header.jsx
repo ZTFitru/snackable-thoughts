@@ -4,7 +4,7 @@ import Link from "next/link";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Header = () => {
+const Header = ({setShowLogin}) => {
   const [email, setEmail] = useState("");
 
   const isValidEmail = (email) => {
@@ -41,10 +41,7 @@ const Header = () => {
           <TfiThought className="text-4xl" />
         </Link>
         <div className="flex gap-4">
-          <button className="font-medium py-1 px-3 sm:py-2 sm:px-4 border border-solid border-black shadow-[-5px_5px_0px_#000000] transition-all hover:shadow-none rounded-[40px]">
-            Sign Up
-          </button>
-          <button className="font-medium py-1 px-3 sm:py-2 sm:px-4 border border-solid border-black shadow-[-5px_5px_0px_#000000] transition-all hover:shadow-none rounded-[40px]">
+          <button onClick={()=> setShowLogin(true)} className="font-medium py-1 px-3 sm:py-2 sm:px-4 border border-solid border-black shadow-[-5px_5px_0px_#000000] transition-all hover:shadow-none rounded-[40px]">
             Log In
           </button>
         </div>
