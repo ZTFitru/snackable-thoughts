@@ -14,7 +14,7 @@ const Sidebar = () => {
 
   const handlePasscode = () => {
     const userPasscode = prompt("Enter the admin passcode:");
-    if (userPasscode === process.env.NEXT_PUBLIC_ADMIN_PASSCODE) {
+    if (userPasscode === process.env.NEXT_PUBLIC_ADMIN) {
       setIsAuthenticated(true);
     } else {
         toast.error('Incorrect code.');
