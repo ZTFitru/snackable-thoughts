@@ -7,6 +7,12 @@ import { toast } from "react-toastify";
 const page = () => {
   const [emails, setEmails] = useState([]);
 
+  const maskEmail = (email) => {
+    const [localPart, domain] = email.split("@");
+    const maskedLocalPart = localPart[0] + "*".repeat(localPart.length - 1);
+    return `${maskedLocalPart}@${domain}`;
+  };
+
   const fetchEmails = async () => {
     const response = await axios.get("/api/email");
     setEmails(response.data.emails);
@@ -60,7 +66,7 @@ const page = () => {
                   key={index}
                   mongoId={item._id}
                   deleteEmail={deleteEmail}
-                  email={item.email}
+                  email={maskEmail(item.email)}
                   date={item.date}
                 />
               );
