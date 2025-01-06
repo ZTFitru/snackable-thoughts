@@ -22,13 +22,18 @@ const LoginPopUp = ({ setShowLogin }) => {
     setError("");
     setSuccess("");
 
-    const endpoint = current === "Login" ? "/api/user/login" : "/api/register";
+    const endpoint = current === "Login" ? "/api/login" : "/api/register";
 
     try {
       const response = await axios.post(endpoint, data);
-      
       if (current === "Login") {
-        const { token } = response.data; 
+        const { token } = response.data;
+  if (token) {
+    localStorage.setItem("authToken", token);
+    setSuccess("Login successful!");
+  } else {
+    setError("Failed to retrieve authentication token.");
+  }
         localStorage.setItem("authToken", token);
         setSuccess("Login successful!");
       } else {
@@ -39,6 +44,7 @@ const LoginPopUp = ({ setShowLogin }) => {
         setShowLogin(false); 
       }, 1000);
     } catch (err) {
+      console.log('----->:', err.response || err)
       setError(err.response?.data?.error || "Something went wrong. Please try again.");
     }
   };
