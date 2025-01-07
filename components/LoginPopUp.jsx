@@ -1,33 +1,55 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { IoMdClose } from "react-icons/io";
 
 const LoginPopUp = ({ setShowLogin }) => {
-
   const [current, setCurrent] = useState("Login");
-
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
   });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const onChangeHandler = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setData((data) => ({ ...data, [name]: value }));
+    const { name, value } = e.target;
+    setData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const onLogin = async (e)=> {
-    e.preventDefault()
-    let newUrl = url;
-    if (current === 'Login') {
-      newUrl += '/api/user/login'
-    } else {
-      newUrl += '/api/user/register'
-    }
-}
+  const onLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+    setSuccess("");
 
-return (
+    const endpoint = current === "Login" ? "/api/login" : "/api/register";
+
+    try {
+      const response = await axios.post(endpoint, data);
+      if (current === "Login") {
+        const { token } = response.data;
+  if (token) {
+    localStorage.setItem("authToken", token);
+    setSuccess("Login successful!");
+  } else {
+    setError("Failed to retrieve authentication token.");
+  }
+        localStorage.setItem("authToken", token);
+        setSuccess("Login successful!");
+      } else {
+        setSuccess("Account created successfully!");
+      }
+
+      setTimeout(() => {
+        setShowLogin(false); 
+      }, 1000);
+    } catch (err) {
+      console.log('----->:', err.response || err)
+      setError(err.response?.data?.error || "Something went wrong. Please try again.");
+    }
+  };
+
+  return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white shadow-lg rounded-lg w-full max-w-md p-6 relative">
         <div className="flex justify-between items-center border-b pb-4 mb-4">
@@ -75,6 +97,8 @@ return (
           >
             {current === "Sign Up" ? "Create an account" : "Login"}
           </button>
+          {error && <p className="text-red-500 mt-2">{error}</p>}
+          {success && <p className="text-green-500 mt-2">{success}</p>}
           <div className="mt-4 text-center text-gray-600">
             {current === "Login" ? (
               <p>
