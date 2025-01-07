@@ -19,13 +19,11 @@
 
 ## Preview:
 - User Fronted
-<br>
-    ![Preview](assets/snackable-frontend.gif)
+![Preview](assets/snackable-frontend.gif)
 
 - Admin Frontend
     - You will need a code to access the admin panel and a code to delete a blog or an email 
-<br>
-    ![Preview](assets/snackable-admin.gif)
+![Preview](assets/snackable-admin.gif)
 
 ## Tech Stack
 

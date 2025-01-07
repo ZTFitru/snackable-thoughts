@@ -89,7 +89,7 @@ const Page = ({ params }) => {
             </div>
           </div>
           <div className="text-center my-24">
-            <h1 className="flex text-3xl lg:text-5xl font-bold text-gray-800 mb-4">
+            <h1 className="text-center text-3xl lg:text-5xl font-bold text-gray-800 mb-4">
               {data.title}
             </h1>
             <div className="flex justify-center items-center gap-3">
