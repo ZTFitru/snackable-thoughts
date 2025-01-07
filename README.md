@@ -18,13 +18,13 @@
     - Authentication using JWT or sessions for admin login
 
 ## Preview:
+- User Fronted
 - <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Man%20Technologist.png" alt="Man Technologist" width="25" height="25" /> User Fronted
 
 ![Preview](assets/snackable-frontend.gif)
 
 - <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Locked%20with%20Key.png" alt="Locked with Key" width="25" height="25" /> Admin Frontend
     - You will need a code to access the admin panel and a code to delete a blog or an email 
-
 ![Preview](assets/snackable-admin.gif)
 
 ## Tech Stack
