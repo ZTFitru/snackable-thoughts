@@ -9,21 +9,53 @@ import Footer from "@/components/Footer";
 import LoginPopUp from "@/components/LoginPopUp"; 
 import Link from "next/link";
 import axios from "axios";
+import Comments from "@/components/Comments";
 
 const Page = ({ params }) => {
   const [data, setData] = useState(null);
+  const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showLogin, setShowLogin] = useState(false); 
+  const [showLogin, setShowLogin] = useState(false);
+  const [commentData, setCommentData] = useState({
+    name: "",
+    email: "",
+    comment: "",
+  });
 
   const fetchData = async () => {
     const resolvedParams = await params;
     const response = await axios.get("/api/blog", {
-      params: {
-        id: resolvedParams.id,
-      },
+      params: { id: resolvedParams.id },
     });
     setData(response.data);
+    const commentsResponse = await axios.get(`/api/comments?blogId=${resolvedParams.id}`);
+    setComments(commentsResponse.data);
+
     setLoading(false);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCommentData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    if (!commentData.name || !commentData.email || !commentData.comment) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("/api/comments", {
+        blogId: params.id,
+        ...commentData,
+      })
+      setComments((prev) => [...prev, response.data]);
+      setCommentData({ name: "", email: "", comment: "" }); 
+    } catch (error) {
+      console.error("Error submitting comment:", error);
+    }
   };
 
   useEffect(() => {
@@ -48,12 +80,12 @@ const Page = ({ params }) => {
               <TfiThought className="text-4xl" />
             </Link>
             <div className="flex gap-4">
-              <button
+              {/* <button
                 onClick={() => setShowLogin(true)}
                 className="font-medium py-1 px-3 sm:py-2 sm:px-4 border border-solid border-black shadow-[-5px_5px_0px_#000000] transition-all hover:shadow-none rounded-[40px]"
               >
                 Log In
-              </button>
+              </button> */}
             </div>
           </div>
           <div className="text-center my-24">
@@ -85,16 +117,7 @@ const Page = ({ params }) => {
               dangerouslySetInnerHTML={{ __html: data.description }}
             ></div>
 
-            <div className="max-w-3xl mx-auto px-6 lg:px-0 mt-16">
-              <p className="text-gray-800 font-semibold mb-4">
-                Share this post:
-              </p>
-              <div className="flex gap-4">
-                <FaInstagram className="text-gray-600 hover:text-gray-800 text-2xl cursor-pointer transition-all" />
-                <BsTwitterX className="text-gray-600 hover:text-gray-800 text-2xl cursor-pointer transition-all" />
-                <SlSocialYoutube className="text-gray-600 hover:text-gray-800 text-2xl cursor-pointer transition-all" />
-              </div>
-            </div>
+            <Comments blogId={data._id} />
           </div>
           <Footer />
         </div>
