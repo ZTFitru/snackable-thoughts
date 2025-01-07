@@ -1,4 +1,4 @@
-# SNACKABLE THOUGHTS
+# <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Smilies/Left%20Speech%20Bubble.png" alt="Left Speech Bubble" width="25" height="25" /> SNACKABLE THOUGHTS
 
 ## About
 - A full-stack blog application built with Next.js and MongoDB. This project features separate frontends for users and administrators, as well as a backend that handles data fetching, authentication, and CRUD operations.
@@ -18,14 +18,14 @@
     - Authentication using JWT or sessions for admin login
 
 ## Preview:
-- User Fronted
-<br>
-    ![Preview](assets/snackable-frontend.gif)
+- <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Man%20Technologist.png" alt="Man Technologist" width="25" height="25" /> User Fronted
 
-- Admin Frontend
+![Preview](assets/snackable-frontend.gif)
+
+- <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Objects/Locked%20with%20Key.png" alt="Locked with Key" width="25" height="25" /> Admin Frontend
     - You will need a code to access the admin panel and a code to delete a blog or an email 
-<br>
-    ![Preview](assets/snackable-admin.gif)
+
+![Preview](assets/snackable-admin.gif)
 
 ## Tech Stack
 
